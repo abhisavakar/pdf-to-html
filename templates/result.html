@@ -11,6 +11,11 @@
         <header>
             <h1>Conversion Result</h1>
             <p>Your PDF has been successfully converted to HTML</p>
+            {% if processing_time %}
+            <div class="processing-info">
+                Processed in {{ processing_time }} seconds
+            </div>
+            {% endif %}
         </header>
 
         <div class="result-actions">
@@ -37,6 +42,7 @@
 
         <footer>
             <p>PDF to HTML Converter | Powered by Flask</p>
+            <p class="small">Using PyMuPDF, PDFMiner, Camelot, Unstructured and more</p>
         </footer>
     </div>
 
