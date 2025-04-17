@@ -300,3 +300,98 @@ footer {
     overflow-x: auto;
     margin-bottom: 1rem;
 }
+
+/* Add these styles to your existing style.css */
+
+/* Status indicators group */
+.status-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Checkbox group styles */
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox input {
+    margin-right: 8px;
+}
+
+/* Enhanced table styling */
+.extracted-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.extracted-table thead {
+    background-color: #f8f9fa;
+}
+
+.extracted-table th,
+.extracted-table td {
+    border: 1px solid #dee2e6;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.extracted-table th {
+    background-color: #e9ecef;
+    color: #495057;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+}
+
+.extracted-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.extracted-table tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Reduce page spacing */
+hr.pagebreak, div.pagebreak {
+    margin: 10px 0;
+    border-top: 1px dashed #ccc;
+    height: 1px;
+}
+
+/* Prevent consecutive breaks */
+br + br {
+    display: none;
+}
+
+/* Add responsive table support */
+@media (max-width: 768px) {
+    .extracted-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* Style for empty cells */
+.extracted-table td:empty::after {
+    content: "-";
+    color: #ccc;
+}
+
+/* Fix for page number containers */
+div[class*="page"] {
+    margin: 5px 0;
+    padding: 0;
+}
