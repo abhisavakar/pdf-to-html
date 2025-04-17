@@ -1,0 +1,12 @@
+pdf_extractor/
+├── app.py
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── main.js
+├── templates/
+│   ├── index.html
+│   └── result.html
+├── uploads/
+└── requirements.txt

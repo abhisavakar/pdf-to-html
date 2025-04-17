@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to HTML Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PDF to HTML Converter</h1>
+            <p>Upload a PDF file to convert it to structured HTML</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="pdf-upload">PDF Upload</button>
+            <button class="tab-button" data-tab="text-input">Text Input</button>
+        </div>
+
+        <div class="tab-content active" id="pdf-upload">
+            <div class="card">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" id="upload-form">
+                    <div class="form-group">
+                        <label for="file">Choose a PDF file:</label>
+                        <div class="file-input-container">
+                            <input type="file" name="file" id="file" accept=".pdf" required>
+                            <div class="file-input-button">Choose File</div>
+                            <div class="file-input-name">No file chosen</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Conversion Method:</label>
+                        <div class="radio-group">
+                            <label class="radio">
+                                <input type="radio" name="conversion_method" value="auto" checked>
+                                <span>Auto-detect</span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="conversion_method" value="text_based">
+                                <span>Text-based PDF</span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="conversion_method" value="scanned">
+                                <span>Scanned PDF (OCR)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Convert to HTML</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="tab-content" id="text-input">
+            <div class="card">
+                <form action="{{ url_for('convert_text') }}" method="post" id="text-form">
+                    <div class="form-group">
+                        <label for="text">Enter plain text to convert to HTML:</label>
+                        <textarea name="text" id="text" rows="10" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Convert to HTML</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>PDF to HTML Converter | Powered by Flask</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

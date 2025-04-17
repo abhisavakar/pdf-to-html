@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Result | PDF to HTML Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Conversion Result</h1>
+            <p>Your PDF has been successfully converted to HTML</p>
+        </header>
+
+        <div class="result-actions">
+            <a href="{{ download_url }}" class="btn primary" download>Download HTML</a>
+            <a href="{{ url_for('index') }}" class="btn secondary">Convert Another File</a>
+        </div>
+
+        <div class="card">
+            <div class="preview-header">
+                <h2>HTML Preview</h2>
+            </div>
+            <div class="preview-container">
+                {{ html_content | safe }}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="code-header">
+                <h2>HTML Source</h2>
+                <button id="copy-button" class="btn small">Copy Code</button>
+            </div>
+            <pre class="code-container"><code id="html-code">{{ html_content }}</code></pre>
+        </div>
+
+        <footer>
+            <p>PDF to HTML Converter | Powered by Flask</p>
+        </footer>
+    </div>
+
+    <script>
+        // Copy HTML code to clipboard
+        document.getElementById('copy-button').addEventListener('click', function() {
+            const codeElement = document.getElementById('html-code');
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            // Provide feedback
+            this.textContent = 'Copied!';
+            setTimeout(() => {
+                this.textContent = 'Copy Code';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
