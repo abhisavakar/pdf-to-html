@@ -1,17 +1,9 @@
 Flask==2.3.2
-PyMuPDF==1.22.5
-pdf2image==1.16.3
-pytesseract==0.3.10
+docling==0.3.0  # Main package for PDF to HTML conversion
+PyMuPDF==1.22.5  # Fallback option if Docling fails
 Werkzeug==2.3.6
 beautifulsoup4==4.12.2
 Pillow==10.0.0
-poppler-utils==0.1.0
-pdfminer.six==20221105
-PyPDF2==3.0.1
-camelot-py==0.11.0
-opencv-python==4.7.0.72
-unstructured==0.10.8
 langdetect==1.0.9
 numpy
 pandas
-docling

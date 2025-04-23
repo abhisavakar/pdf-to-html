@@ -3,103 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to HTML Converter (Docling)</title>
+    <title>PDF to HTML Converter</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>AI-Powered PDF Converter</h1>
-            <p>Using Docling from IBM Research for high-precision document conversion</p>
-            <div class="status-indicators">
-                <div class="status-indicator">
-                    <span class="label">Docling:</span>
-                    <span class="status {% if docling_status == 'Available' %}status-available{% else %}status-unavailable{% endif %}">
-                        {{ docling_status }}
-                    </span>
-                </div>
-                <div class="status-indicator">
-                    <span class="label">Camelot Tables:</span>
-                    <span class="status {% if camelot_status == 'Available' %}status-available{% else %}status-unavailable{% endif %}">
-                        {{ camelot_status }}
-                    </span>
-                </div>
+            <h1>PDF to HTML Converter</h1>
+            <p>Upload a PDF file to convert it to structured HTML using Docling</p>
+            {% if docling_status != "Available" %}
+            <div class="alert">
+                <p>Warning: Docling library is not installed ({{ docling_status }}). Using fallback methods for conversion.</p>
+                <p>For best results, please install Docling with: <code>pip install docling</code></p>
             </div>
+            {% endif %}
         </header>
 
-        <div class="card">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <div class="alert">
-                        {% for message in messages %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
-
-            <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" id="upload-form">
-                <div class="form-group">
-                    <label for="file">Choose a PDF file:</label>
-                    <div class="file-input-container">
-                        <input type="file" name="file" id="file" accept=".pdf" required>
-                        <div class="file-input-button">Choose File</div>
-                        <div class="file-input-name">No file chosen</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Output Format:</label>
-                    <div class="radio-group">
-                        <label class="radio">
-                            <input type="radio" name="output_format" value="html" checked>
-                            <span>HTML</span>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="output_format" value="markdown">
-                            <span>Markdown</span>
-                        </label>
-                        <label class="radio">
-                            <input type="radio" name="output_format" value="json">
-                            <span>JSON</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Optimization Options:</label>
-                    <div class="checkbox-group">
-                        <label class="checkbox">
-                            <input type="checkbox" name="optimize_tables" checked>
-                            <span>Optimize Tables</span>
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" name="fix_spacing" checked>
-                            <span>Reduce Page Spacing</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn primary">Convert Document</button>
-                </div>
-            </form>
+        <div class="tabs">
+            <button class="tab-button active" data-tab="pdf-upload">PDF Upload</button>
+            <button class="tab-button" data-tab="text-input">Text Input</button>
         </div>
 
-        <div class="feature-list">
-            <h2>Enhanced Features</h2>
-            <ul>
-                <li><strong>Improved Table Handling</strong> - Better recognition and formatting of tables</li>
-                <li><strong>Optimized Page Spacing</strong> - Reduced gaps between pages in output</li>
-                <li><strong>Table Structure Recognition</strong> - Preserves complex tables using TableFormer AI model</li>
-                <li><strong>Reading Order Correction</strong> - Ensures text flows naturally in the output</li>
-                <li><strong>Multi-Column Support</strong> - Correctly handles documents with multiple columns</li>
-                <li><strong>Multiple Output Formats</strong> - HTML, Markdown, and JSON support</li>
-            </ul>
+        <div class="tab-content active" id="pdf-upload">
+            <div class="card">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" id="upload-form">
+                    <div class="form-group">
+                        <label for="file">Choose a PDF file:</label>
+                        <div class="file-input-container">
+                            <input type="file" name="file" id="file" accept=".pdf" required>
+                            <div class="file-input-button">Choose File</div>
+                            <div class="file-input-name">No file chosen</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Conversion Method:</label>
+                        <div class="radio-group">
+                            <label class="radio">
+                                <input type="radio" name="conversion_method" value="auto" checked>
+                                <span>Auto-detect</span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="conversion_method" value="text_based">
+                                <span>Text-based PDF</span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="conversion_method" value="scanned">
+                                <span>Scanned PDF (OCR)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>About Docling PDF Conversion</h3>
+                        <p>Docling is an AI-powered document understanding toolkit developed by IBM Research that provides high-precision conversion of PDF documents.</p>
+                        <ul>
+                            <li><strong>Auto-detect:</strong> Automatically determines the best processing approach</li>
+                            <li><strong>Text-based:</strong> Optimized for digitally created PDFs with selectable text</li>
+                            <li><strong>Scanned:</strong> Uses OCR for images or scanned documents</li>
+                        </ul>
+                        <p>The AI-based approach preserves document structure, tables, and layout better than traditional converters.</p>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Convert to HTML</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="tab-content" id="text-input">
+            <div class="card">
+                <form action="{{ url_for('convert_text') }}" method="post" id="text-form">
+                    <div class="form-group">
+                        <label for="text">Enter plain text to convert to HTML:</label>
+                        <textarea name="text" id="text" rows="10" required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Convert to HTML</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <footer>
-            <p>PDF Converter | Powered by <a href="https://github.com/docling-project/docling" target="_blank">Docling</a> from IBM Research</p>
+            <p>PDF to HTML Converter | Powered by Docling AI Document Understanding</p>
+            <p class="small">Implements IBM Research's Docling toolkit for high-precision PDF conversion</p>
         </footer>
     </div>
 

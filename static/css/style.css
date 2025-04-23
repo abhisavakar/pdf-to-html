@@ -395,3 +395,130 @@ div[class*="page"] {
     margin: 5px 0;
     padding: 0;
 }
+/* Dependency status styles */
+.dependency-status {
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.dependency-toggle {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color);
+    user-select: none;
+}
+
+.dependency-toggle:hover {
+    background-color: #e9ecef;
+}
+
+.dependency-details {
+    padding: 15px;
+    background-color: white;
+}
+
+.dependency-details h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.dependency-details ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+.dependency-details li {
+    padding: 5px 0;
+}
+
+.status-available {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.status-missing {
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.dependency-info {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.dependency-info p {
+    margin: 8px 0;
+}
+
+.dependency-info ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    color: var(--secondary-color);
+}
+
+.footer-details {
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* Add this to your style.css file */
+
+.info-box {
+    background-color: #e8f4f8;
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: var(--border-radius);
+}
+
+.info-box h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.info-box ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.info-box li {
+    margin-bottom: 5px;
+}
+
+/* Error message styling */
+.error-message {
+    background-color: #fff3f3;
+    border-left: 4px solid #d9534f;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: var(--border-radius);
+}
+
+.error-message h2 {
+    margin-top: 0;
+    color: #d9534f;
+}
+
+.error-message pre {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}

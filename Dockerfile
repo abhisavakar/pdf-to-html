@@ -5,8 +5,17 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     tesseract-ocr \
     tesseract-ocr-eng \
+    tesseract-ocr-osd \
+    ghostscript \
+    libmagickwand-dev \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
+
+# Create a policy file for ImageMagick to read PDFs (needed for Docling)
+RUN echo '<policymap> \
+    <policy domain="coder" rights="read|write" pattern="PDF" /> \
+    <policy domain="coder" rights="read|write" pattern="LABEL" /> \
+</policymap>' > /etc/ImageMagick-6/policy.xml
 
 # Set working directory
 WORKDIR /app
